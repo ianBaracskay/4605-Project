@@ -18,7 +18,8 @@ with open(outfile, "w", newline="") as f:
         "timestamp_ms",
         "x0","y0","z0",
         "x1","y1","z1",
-        "x2","y2","z2"
+        "x2","y2","z2",
+        "x3", "y3", "z3"
     ])
 
     while True:
@@ -27,6 +28,6 @@ with open(outfile, "w", newline="") as f:
             continue
 
         values = line.split(",")
-        if len(values) == 10:    # 1 timestamp + 9 axis values
+        if len(values) == 13:    # 1 timestamp + 9 axis values
             writer.writerow(values)
             print(values)

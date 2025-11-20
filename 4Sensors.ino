@@ -4,7 +4,7 @@
 // PCA9548A I2C multiplexer
 #define PCA9548A_ADDR 0x70
 
-Adafruit_MLX90393 mlx[3];
+Adafruit_MLX90393 mlx[4];
 
 void i2cSelect(uint8_t channel) {
   Wire.beginTransmission(PCA9548A_ADDR);
@@ -16,7 +16,7 @@ void setup() {
   Serial.begin(115200);
   Wire.begin(21, 22);   // ESP32 I2C pins
 
-  for (int i = 0; i < 3; i++) {
+  for (int i = 0; i < 4; i++) {
     i2cSelect(i);
 
     if (!mlx[i].begin_I2C()) {
@@ -37,9 +37,9 @@ void loop() {
   unsigned long now = millis();
 
   // Read all 3 sensors across the multiplexer
-  float x[3], y[3], z[3];
+  float x[4], y[4], z[4];
 
-  for (int i = 0; i < 3; i++) {
+  for (int i = 0; i < 4; i++) {
     i2cSelect(i);
     mlx[i].readData(&x[i], &y[i], &z[i]);
   }
@@ -48,11 +48,11 @@ void loop() {
   Serial.print(now);
   Serial.print(",");
 
-  for (int i = 0; i < 3; i++) {
+  for (int i = 0; i < 4; i++) {
     Serial.print(x[i]); Serial.print(",");
     Serial.print(y[i]); Serial.print(",");
     Serial.print(z[i]);
-    if (i < 2) Serial.print(",");
+    if (i < 3) Serial.print(",");
   }
 
   Serial.println();
